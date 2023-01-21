@@ -7,7 +7,7 @@ export function connection() {
 		console.log(`Connection websocket on port: ${req.socket.localPort}`)
 
 		ws.on('close', () => {
-			console.log(`Connection filed`)
+			console.log(`🔒 Connection close 🔒`)
 			duplex.destroy()
 		})
 
@@ -29,11 +29,10 @@ export function connection() {
 			const [x, y] = params.map(Number)
 
 			let isReady = true
-			let result: string
 
 			while (isReady) {
 				isReady = false
-				result = await navigation(command, x, y)
+				const result: string = await navigation(command, x, y)
 				duplex.write(`${result}\0`)
 			}
 		})

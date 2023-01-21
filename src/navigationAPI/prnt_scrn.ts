@@ -1,27 +1,22 @@
 import { Region, screen } from '@nut-tree/nut-js'
 import Jimp from 'jimp'
 
-export async function prnt_scrn() {
-	const region = new Region(50, 50, 50, 50)
-	const bitmap = await screen.grabRegion(region)
+export async function prnt_scrn(x: number, y: number) {
+	const widthScreen = await screen.width()
+	const hightScreen = await screen.height()
 
-	const image = new Jimp(bitmap)
+	if (widthScreen - (x + 100) >= 0 && hightScreen - (y + 100)) {
+		const region = new Region(x - 100, y - 100, 200, 200)
+		screen.highlight(region)
 
-	console.log(image)
+		const bitmap = await screen.grabRegion(region)
 
-	//let pos = 0
+		const img = new Jimp(bitmap)
 
+		const base64 = await img.getBase64Async(img.getMIME())
 
-
-	// image.scan(0, 0, image.bitmap.width, image.bitmap.height, (x, y, idx) => {
-	// 	image.bitmap.data[idx + 2]
-	// 	image.bitmap.data[idx + 1]
-	// 	image.bitmap.data[idx + 0]
-	// 	image.bitmap.data[idx + 3]
-	// })
-
-	// const base64 = await image.getBase64Async(image.getMIME())
-	// //const image = await screen.captureRegion('image', region)
-
-	// return base64.substring(22)
+		return base64.substring(22)
+	} else {
+		return 'Error screen'
+	}
 }

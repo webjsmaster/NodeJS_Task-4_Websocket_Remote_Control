@@ -18,7 +18,3 @@ httpServer.listen(HTTP_PORT, () => {
 export const wss = new WebSocketServer({ port: +WSS_PORT })
 
 wss.on('connection', connection())
-
-wss.on('close', () => {
-	console.log('🔒 Close connection')
-})

@@ -48,7 +48,7 @@ export async function navigation(command: string, x: number, y: number) {
 			return command
 		}
 		case 'prnt_scrn': {
-			const file = await prnt_scrn()
+			const file = await prnt_scrn(position.x, position.y)
 			console.log('prnt_scrn')
 			return 'prnt_scrn ' + file
 		}
