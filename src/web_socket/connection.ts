@@ -1,4 +1,5 @@
 import { IncomingMessage } from 'http'
+import { EOL } from 'os'
 import { createWebSocketStream, WebSocket } from 'ws'
 import { wss } from '../index.js'
 import { navigation } from '../navigationAPI/navigation.js'
@@ -15,7 +16,7 @@ export function connection() {
 		process.on('SIGINT', () => {
 			ws.close()
 			wss.close()
-			console.log('🧨 API Close!!!')
+			console.log(EOL, '🧨 API Close!!!')
 			process.exit()
 		})
 
